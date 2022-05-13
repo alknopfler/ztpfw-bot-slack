@@ -3,11 +3,10 @@ FROM quay.io/amorgant/golang:latest
 WORKDIR /go/src/github.com/alknopfler/ztpfw-bot-slack/
 ADD cmd /go/src/github.com/alknopfler/ztpfw-bot-slack/cmd
 ADD pkg /go/src/github.com/alknopfler/ztpfw-bot-slack/pkg
-ADD go.mod go.sum /go/src/github.com/alknopfler/ztpfw-bot-slack/
+ADD go.mod /go/src/github.com/alknopfler/ztpfw-bot-slack/
 ADD README.md /go/src/github.com/alknopfler/ztpfw-bot-slack/
 
 RUN go mod tidy
-RUN GOOS=linux go build -a -installsuffix cgo -o ztpfw-bot-slack cmd/main.go
+RUN GOOS=linux go build -a -installsuffix cgo -o /usr/local/bin/ztpfw-bot-slack cmd/main.go
 
-COPY /go/src/github.com/alknopfler/ztpfw-bot-slack/ztpfw-bot-slack /usr/local/bin/ztpfw-bot-slack
 CMD ["/usr/local/bin/ztpfw-bot-slack"]
